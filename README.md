@@ -1,0 +1,2 @@
+# -psdrive.Name-
+# Get UNC path from mapped drive function Get-UNCFromPath {    Param(     [Parameter(Position=0, Mandatory=$true, ValueFromPipeline=$true)]     [String]     $Path)      if ($Path.Contains([io.path]::VolumeSeparatorChar))      {         $psdrive = Get-PSDrive -Name $Path.Substring(0, 1) -PSProvider 'FileSystem'          # Is it a mapped drive?         if ($psdrive.DisplayRoot)          {             $Path = $Path.Replace($psdrive.Name + [io.path]::VolumeSeparatorChar, $psdrive.DisplayRoot)         }     }      return $Path
